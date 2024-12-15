@@ -45,6 +45,7 @@ pub struct InitializeDemo<'info> {
   pub demo: Account<'info, Demo>,
   pub system_program: Program<'info, System>,
 }
+
 #[derive(Accounts)]
 pub struct CloseDemo<'info> {
   #[account(mut)]
