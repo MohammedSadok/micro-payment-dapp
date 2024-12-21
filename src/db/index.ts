@@ -1,10 +1,6 @@
-import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import { config } from "dotenv";
+import { drizzle } from "drizzle-orm/neon-http";
 
-const pool = new Pool({
-  connectionString: process.env.DB_URL!,
-});
+config({ path: ".env" }); // or .env.local
 
-const db = drizzle(pool);
-
-export { db };
+export const db = drizzle(process.env.DATABASE_URL!);

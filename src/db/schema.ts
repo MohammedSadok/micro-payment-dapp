@@ -7,23 +7,11 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const usersTable = pgTable("users", {
-  id: varchar({ length: 255 }).primaryKey(),
-  name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
-  createdAt: timestamp().default(sql`NOW()`),
-  updatedAt: timestamp().default(sql`NOW()`),
-});
-
 export const accountsTable = pgTable("accounts", {
   id: varchar({ length: 255 }).primaryKey(),
-  userId: varchar({ length: 255 })
-    .notNull()
-    .references(() => usersTable.id),
+  userId: varchar({ length: 255 }).notNull(),
   publicKey: varchar({ length: 255 }).notNull().unique(),
   balance: decimal().notNull().default("0"),
-  createdAt: timestamp().default(sql`NOW()`),
-  updatedAt: timestamp().default(sql`NOW()`),
 });
 
 export const transactionsTable = pgTable("transactions", {
@@ -43,20 +31,7 @@ export const transactionsTable = pgTable("transactions", {
 
 export const favoriteUsersTable = pgTable("favorite_users", {
   id: varchar({ length: 255 }).primaryKey(),
-  userId: varchar({ length: 255 })
-    .notNull()
-    .references(() => usersTable.id),
+  userId: varchar({ length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
   publicKey: varchar({ length: 255 }).notNull(),
-  createdAt: timestamp().default(sql`NOW()`),
-});
-
-export const cryptoPricesTable = pgTable("crypto_prices", {
-  id: varchar({ length: 255 }).primaryKey(),
-  symbol: varchar({ length: 50 }).notNull().unique(),
-  name: varchar({ length: 255 }).notNull(),
-  price: decimal().notNull(),
-  change24h: decimal().notNull(),
-  chart: decimal().array(),
-  updatedAt: timestamp().default(sql`NOW()`),
 });
