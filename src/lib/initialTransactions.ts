@@ -1,4 +1,15 @@
-import { Transaction } from "./types";
+// import { Transaction } from "@/types";
+export interface Transaction {
+  id: string;
+  amount: number;
+  type: "SEND" | "RECEIVE";
+  date: Date;
+  description?: string;
+  toPublicKey?: string;
+  fromPublicKey?: string;
+  status: "pending" | "success" | "failed";
+  paymentMethod: string;
+}
 
 export const initialTransactions: Transaction[] = [
   {

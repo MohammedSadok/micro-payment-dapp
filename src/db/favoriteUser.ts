@@ -1,5 +1,4 @@
 "use server";
-import { auth } from "@clerk/nextjs/server";
 import { eq, sql } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import { db } from ".";
@@ -14,8 +13,6 @@ export type CreateFavoriteUserInput = {
 export type UpdateFavoriteUserInput = Partial<CreateFavoriteUserInput>;
 
 export async function getFavoriteUsersWithTotals(userId: string) {
-  const user = await auth();
-
   try {
     const result = await db
       .select({

@@ -6,7 +6,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Transaction } from "@/lib/types";
+// import { Transaction } from "@/lib/types";
+export interface Transaction {
+  id: string;
+  amount: number;
+  type: "SEND" | "RECEIVE";
+  date: Date;
+  description?: string;
+  toPublicKey?: string;
+  fromPublicKey?: string;
+  status: "pending" | "success" | "failed";
+  paymentMethod: string;
+}
 
 interface RecentTransactionsProps {
   transactions: Transaction[];

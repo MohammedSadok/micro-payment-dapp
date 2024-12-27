@@ -96,21 +96,21 @@ export function AppModal({
 
   return (
     <dialog className="modal" ref={dialogRef}>
-      <div className="modal-box space-y-5">
+      <div className="modal-box space-y-5 bg-white">
         <h3 className="font-bold text-lg">{title}</h3>
         {children}
         <div className="modal-action">
           <div className="join space-x-2">
             {submit ? (
               <button
-                className="btn btn-xs lg:btn-md btn-primary"
+                className="btn btn-xs lg:btn-md btn-primary bg-white text-black"
                 onClick={submit}
                 disabled={submitDisabled}
               >
                 {submitLabel || "Save"}
               </button>
             ) : null}
-            <button onClick={hide} className="btn">
+            <button onClick={hide} className="btn bg-white text-black">
               Close
             </button>
           </div>

@@ -15,13 +15,11 @@ export interface Account {
 
 export interface Transaction {
   id: string;
-  amount: number;
-  type: "SEND" | "RECEIVE";
-  date: Date;
-  description: string;
+  amount: string;
+  description: string | null;
   toPublicKey: string;
   fromPublicKey: string;
-  status: "pending" | "success" | "failed";
+  createdAt: Date | null;
 }
 
 export interface FavoriteUser {

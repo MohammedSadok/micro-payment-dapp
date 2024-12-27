@@ -1,5 +1,9 @@
-import AccountDetailFeature from '@/components/account/account-detail-feature'
+import AccountDetailFeature from "@/components/account/account-detail-feature";
+import { auth } from "@clerk/nextjs/server";
 
-export default function Page() {
-  return <AccountDetailFeature />
+export default async function Page() {
+  const { userId } = await auth();
+  if (!userId) throw new Error("User not found");
+
+  return <AccountDetailFeature userId={userId} />;
 }

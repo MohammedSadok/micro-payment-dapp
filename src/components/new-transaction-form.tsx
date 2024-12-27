@@ -26,9 +26,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getFavoriteUsersByUserId } from "@/db/favoriteUser";
 import { FavoriteUser, Transaction } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -40,20 +42,19 @@ const formSchema = z.object({
 });
 
 interface NewTransactionFormProps {
+  userId: string;
   onSubmit: (transaction: Transaction) => void;
   onCancel: () => void;
 }
 
-const favoriteUsers: FavoriteUser[] = [
-  { userId: "1", name: "John Doe", publicKey: "0x1234...5678" },
-  { userId: "2", name: "Jane Smith", publicKey: "0x5678...1234" },
-];
-
 export function NewTransactionForm({
+  userId,
   onSubmit,
   onCancel,
 }: NewTransactionFormProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const [favoriteUsers, setFavoriteUsers] = useState<FavoriteUser[]>([]);
+  const { publicKey } = useWallet();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,15 +66,22 @@ export function NewTransactionForm({
     },
   });
 
+  useEffect(() => {
+    async function fetchFavoriteUsers() {
+      const users = await getFavoriteUsersByUserId(userId);
+      setFavoriteUsers(users);
+    }
+    fetchFavoriteUsers();
+  }, [userId]);
+
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    if (publicKey == null) throw new Error("public key not found");
     const newTransaction: Transaction = {
       id: Date.now().toString(),
-      amount: values.amount,
-      type: "SEND",
-      date: new Date(),
-      status: "pending",
+      amount: values.amount + "",
+      createdAt: new Date(),
       description: values.description,
-      fromPublicKey: "0x9876...5432", // This should be the user's public key
+      fromPublicKey: publicKey.toString(),
       toPublicKey: values.recipient,
     };
     onSubmit(newTransaction);

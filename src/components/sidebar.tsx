@@ -5,7 +5,6 @@ import {
   CreditCard,
   LayoutDashboard,
   PanelLeftOpen,
-  Settings,
   User,
 } from "lucide-react";
 import Link from "next/link";
@@ -24,7 +23,7 @@ const routes = [
   {
     label: "Transactions",
     icon: Activity,
-    href: "/transactions",
+    href: "/account",
     color: "text-violet-500",
   },
 
@@ -34,11 +33,11 @@ const routes = [
     href: "/profile",
     color: "text-orange-700",
   },
-  {
-    label: "Settings",
-    icon: Settings,
-    href: "/settings",
-  },
+  // {
+  //   label: "Settings",
+  //   icon: Settings,
+  //   href: "/settings",
+  // },
 ];
 
 export function Sidebar() {
