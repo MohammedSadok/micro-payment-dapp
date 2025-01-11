@@ -43,7 +43,8 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
             <TableCell>{transaction.description}</TableCell>
             <TableCell
               className={
-                transaction.amount > 0 ? "text-green-500" : "text-red-500"
+                transaction.type === "SEND" ? "text-red-500" : "text-green-500"
+                // transaction.amount > 0 ? "text-green-500" : "text-red-500"
               }
             >
               ${Math.abs(transaction.amount).toFixed(2)}

@@ -32,7 +32,6 @@ export function TopBar() {
 
   return (
     <div className="h-16 px-4 border-b border-gray-200 flex items-center justify-between">
-      <h1 className="text-xl font-semibold">{getPageTitle(pathname)}</h1>
       <div className="flex items-center space-x-4">
         <WalletButton className="" />
         <ClusterUiSelect />
