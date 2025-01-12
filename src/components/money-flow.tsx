@@ -54,7 +54,7 @@ const generateMonthlyData = (transactions: Transaction[]) => {
   transactions.forEach((transaction) => {
     const date = new Date(transaction.date);
     const month = months[date.getMonth()];
-    if (transaction.amount > 0) {
+    if (transaction.type === "SEND") {
       monthlyData[month].income += transaction.amount;
     } else {
       monthlyData[month].expense += Math.abs(transaction.amount);
