@@ -44,7 +44,12 @@ export default function FavoriteUsersCard({
         <AddFavoriteUserForm onAddUser={handleAddFavoriteUser} />
       </CardHeader>
       <CardContent>
-        <FavoriteUsersTable favoriteUsers={favoriteUsers} />
+        <FavoriteUsersTable
+          favoriteUsers={favoriteUsers}
+          onDeleteUser={(id: string) => {
+            setFavoriteUsers(favoriteUsers.filter((user) => user.id !== id));
+          }}
+        />
       </CardContent>
     </Card>
   );
